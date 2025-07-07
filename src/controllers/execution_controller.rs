@@ -17,6 +17,7 @@ pub async fn submit_code(
         expected_output: payload.expected_output,
         language_id: payload.language_id,
     };
+    println!("Received submission");
 
     if submission.code.is_empty() {
         return Err(Json(IExecutionError {

@@ -13,3 +13,5 @@ pub const PODMAN_ARGUMENTS: [&str; 10] = [
     "/bin/bash"
 ];
 
+// docker run -d --rm --privileged   -v /var/run/docker.sock:/var/run/docker.sock:rw   -p 3000:3000   bakir004/rust-zmanger-rce
+
