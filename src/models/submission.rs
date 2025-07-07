@@ -6,7 +6,8 @@ use super::ExecutionResult;
 #[derive(Deserialize, Clone)]
 pub struct ISubmission {
     pub code: String,
-    pub stdin: String,
+    #[serde(default)]
+    pub stdin: Option<String>,
     pub expected_output: Vec<String>,
     pub language_id: u8 
 }
@@ -21,4 +22,5 @@ pub struct ISubmissionGroupElement {
     pub id: u64,
     pub submission: ISubmission,
 }
+
 

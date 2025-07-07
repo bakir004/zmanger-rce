@@ -38,9 +38,11 @@ pub async fn submit_code(
             message: "Invalid language ID".to_string(),
         }))?;
 
+    let stdin = submission.stdin.unwrap_or("".to_string());
+
     let bash_script = prepare_bash_script(
         &submission.code,
-        &submission.stdin,
+        &stdin,
         &language_config,
         TIMEOUT_IN_SECONDS,
     );
@@ -116,9 +118,11 @@ pub async fn submit_batch(
                 message: "Invalid language ID".to_string(),
             }))?;
 
+        let stdin = submission.stdin.unwrap_or("".to_string());
+
         let bash_script = prepare_bash_script(
             &submission.code,
-            &submission.stdin,
+            &stdin,
             &language_config,
             TIMEOUT_IN_SECONDS,
         );
