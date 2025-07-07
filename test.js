@@ -1,7 +1,6 @@
-// Save as sendRequests.js
 import fetch from "node-fetch";
 
-const url = "http://localhost:3000/queue";
+const url = "http://localhost:3000/submissions";
 
 const body = {
   code: `#include <iostream>
@@ -47,7 +46,7 @@ async function sendRequest(i) {
 }
 
 async function main() {
-  for (let i = 1; i <= 20; i++) {
+  for (let i = 1; i <= 100; i++) {
     sendRequest(i);
     await new Promise((r) => setTimeout(r, 100)); // 100 ms delay
   }
