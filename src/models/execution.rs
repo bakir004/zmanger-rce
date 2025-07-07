@@ -12,7 +12,7 @@ pub struct IExecutionResult {
 }
 
 #[derive(Serialize)]
-pub struct IExecutionError{
+pub struct IExecutionError {
     pub status_code: u16,
     pub message: String,
 }
@@ -29,5 +29,16 @@ pub struct ExecutionResult {
 #[derive(Serialize, Debug)]
 pub struct ExecutionError {
     pub message: String,
+}
+
+#[derive(Serialize)]
+pub struct IExecutionGroupResult {
+    pub results: Vec<IExecutionGroupResultElement>,
+}
+
+#[derive(Serialize)]
+pub struct IExecutionGroupResultElement {
+    pub id: u64,
+    pub result: IExecutionResult,
 }
 

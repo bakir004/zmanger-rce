@@ -16,3 +16,9 @@ pub struct SubmissionJob {
     pub response_tx: oneshot::Sender<ExecutionResult>,
 }
 
+#[derive(Deserialize, Clone)]
+pub struct ISubmissionGroupElement {
+    pub id: u64,
+    pub submission: ISubmission,
+}
+
