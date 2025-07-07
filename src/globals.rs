@@ -9,7 +9,7 @@ pub const PODMAN_ARGUMENTS: [&str; 10] = [
     "label=disable", 
     "--cap-add=SYS_PTRACE", 
     "--memory=512m", 
-    "gcc:latest", 
-    "bash"
+    "docker.io/library/gcc:latest", 
+    "/bin/bash"
 ];
 
