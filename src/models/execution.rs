@@ -11,11 +11,11 @@ pub struct IExecutionResult {
     pub description: String,
 }
 
-#[derive(Serialize)]
-pub struct IExecutionError {
-    pub status_code: u16,
-    pub message: String,
-}
+// #[derive(Serialize)]
+// pub struct IExecutionError {
+//     pub status_code: u16,
+//     pub message: String,
+// }
 
 #[derive(Serialize)]
 pub struct ExecutionResult {

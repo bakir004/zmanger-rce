@@ -23,7 +23,7 @@ async fn main() {
         .route("/submissions", post(submit_code))
         .route("/submissions/batch", post(submit_batch));
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000")
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3001")
         .await
         .expect("Failed to bind TCP listener");
 

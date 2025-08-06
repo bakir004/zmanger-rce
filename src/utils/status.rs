@@ -1,10 +1,14 @@
 use crate::models::SubmissionStatus;
 
+fn remove_whitespace(s: &str) -> String {
+    s.chars().filter(|c| !c.is_whitespace()).collect()
+}
+
 pub fn get_submission_status(
     stdout: &String,
     stderr: &String,
     runtime_status: i32,
-    expected_output: Vec<String> 
+    expected_outputs: Vec<String> 
 ) -> SubmissionStatus{
     let result_description = if runtime_status == 124 {
         SubmissionStatus::TimeLimitExceeded
@@ -16,8 +20,16 @@ pub fn get_submission_status(
         SubmissionStatus::MemoryLeakDetected
     } else if runtime_status == 1 {
         SubmissionStatus::MemoryError
-    } else if runtime_status == 0 && expected_output.contains(&stdout){
+    } else if expected_outputs
+        .iter()
+        .any(|expected| expected.trim() == stdout.trim())
+    {
         SubmissionStatus::Accepted
+    } else if expected_outputs
+        .iter()
+        .any(|expected| remove_whitespace(expected) == remove_whitespace(&stdout))
+    {
+        SubmissionStatus::CoreAccepted
     } else if runtime_status == 0 {
         SubmissionStatus::WrongAnswer
     } else {

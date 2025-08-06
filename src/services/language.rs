@@ -16,6 +16,6 @@ pub fn get_language_config(language_id: u8) -> Result<LanguageConfig, std::io::E
             compiler: "gcc",
             flags: &["-fsanitize=address"],
         }),
-        _ => Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, "Unsupported language ID")),
+        _ => Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, "Unsupported language ID, try 1 for C++ or 2 for C")),
     }
 }

@@ -1,11 +1,12 @@
 use std::result::Result;
+use axum::{http::StatusCode, response::Response, response::IntoResponse};
 use tokio::sync::oneshot;
 
-use crate::{models::{submission::SubmissionJob, IExecutionError, ExecutionResult}, SUBMISSION_QUEUE};
+use crate::{models::{submission::SubmissionJob, ExecutionResult}, SUBMISSION_QUEUE};
 
 pub async fn add_to_queue(
     script: String,
-) -> Result<ExecutionResult, IExecutionError> {
+) -> Result<ExecutionResult, Response> {
     let (tx, rx) = oneshot::channel();
 
     let job = SubmissionJob {
@@ -20,10 +21,7 @@ pub async fn add_to_queue(
 
     match rx.await {
         Ok(result) => Ok(result),
-        Err(_) => Err(IExecutionError {
-            status_code: 500,
-            message: "Failed to receive response from worker".to_string(),
-        }),
+        Err(_) => Err((StatusCode::INTERNAL_SERVER_ERROR, "Failed to receive execution result").into_response()),
     }
 }
 
