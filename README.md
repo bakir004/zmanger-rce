@@ -91,7 +91,7 @@ Example response:
 
 #### Request Body
 
-Request body for batch execution consists of an array of objects with properties `id` and `submission`, where submission is the aforementioned `Submission` object used in the `/submissions` endpoint request body.
+Request body for batch execution consists of an array of objects with properties `id` and `submission`, where submission is the aforementioned `Submission` object used in the previous endpoint.
 
 #### Response body
 
@@ -152,4 +152,4 @@ Example response:
 }
 ```
 
-It is the responsibility of the user to assign `id`'s to each submission and the rearrange them after the API's response.
+It is the responsibility of the user to assign `id`'s to each submission and the rearrange the execution results whose `id`'s correspond to submissions `id`'s.
