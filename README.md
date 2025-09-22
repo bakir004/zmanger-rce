@@ -67,15 +67,17 @@ For future reference, call this object format `Submission`.
 
 #### Example
 
+Example body:
 ```json
-// Example body
 {
   "code": "#include<iostream>\nint main() {\n std::cout << \"selamun aleykum dunya\"; return 0;}",
   "stdin": "",
   "expected_output": ["selamun aleykum dunya"],
   "language_id": 1
 }
-// Example output
+```
+Example response:
+```json
 {
   "compile_output": "",
   "stdout": "selamun aleykum dunyaa",
@@ -87,7 +89,7 @@ For future reference, call this object format `Submission`.
 }
 ```
 
-#### `/submissions/batch`
+#### `POST /submissions/batch`
 
 ### Request Body
 
@@ -97,8 +99,8 @@ Request body for batch execution consists of an array of objects with properties
 
 Response body consists of an array `results` of objects with properties `id` and `result`, where `result` is the same object returned by the previous endpoint.
 
+Example body:
 ```json
-// Example body
 [
   {
     "id": 0,
@@ -119,7 +121,9 @@ Response body consists of an array `results` of objects with properties `id` and
     }
   }
 ]
-// Example response
+```
+Example response:
+```json
 {
   "results": [
     {
