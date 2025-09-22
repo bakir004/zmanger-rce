@@ -26,9 +26,9 @@ Zmanger RCE can also be compiled and run as a Rust app, only after installing th
 
 After spinning up an instance of the RCE, you can send C and C++ code to the endpoints.
 
-#### `POST /submissions`
+### `POST /submissions`
 
-### Request Body
+#### Request Body
 
 For future reference, call this object format `Submission`.
 
@@ -36,10 +36,10 @@ For future reference, call this object format `Submission`.
 |------------------|-----------------|----------|-------------------------------------------------------|
 | `code`           | `string`        | Yes      | The source code to run.                               |
 | `stdin`          | `string`        | No       | Optional standard input to pass to the program.      |
-| `expected_output`| `array[string]` | Yes       | Expected output lines for validation (empty array if no specific output is expected).     |
+| `expected_output`| `array[string]` | Yes       | Expected output lines for validation (must contain one empty string if no specific output is expected).     |
 | `language_id`    | `integer`       | Yes      | 1 for C++, 2 for C.      |
 
-### Response Body
+#### Response Body
 
 | Field               | Type     | Description                                          |
 |--------------------|----------|------------------------------------------------------|
@@ -47,11 +47,11 @@ For future reference, call this object format `Submission`.
 | `stdout`           | `string` | Program standard output.                              |
 | `stderr`           | `string` | Program standard error output.                        |
 | `time`             | `integer`| Execution time in milliseconds.                       |
-| `runtime_status`   | `integer`| Status code of program execution (0 = success).      |
+| `runtime_status`   | `integer`| Status code of program execution (0 = success, 1 = error).      |
 | `submission_status`| `integer`| Status of submission. |
 | `description`      | `string` | Human-readable description of result.                |
 
-### Submission Status Codes
+#### Submission Status Codes
 
 | Value | Description                |
 |-------|---------------------------------|
@@ -64,8 +64,6 @@ For future reference, call this object format `Submission`.
 | 6     | Memory Leak Detected             |
 | 7     | Memory Error                     |
 | 8     | Runtime Error                    |
-
-#### Example
 
 Example body:
 ```json
@@ -80,7 +78,7 @@ Example response:
 ```json
 {
   "compile_output": "",
-  "stdout": "selamun aleykum dunyaa",
+  "stdout": "selamun aleykum dunya",
   "stderr": "",
   "time": 13557,
   "runtime_status": 0,
@@ -89,13 +87,13 @@ Example response:
 }
 ```
 
-#### `POST /submissions/batch`
+### `POST /submissions/batch`
 
-### Request Body
+#### Request Body
 
 Request body for batch execution consists of an array of objects with properties `id` and `submission`, where submission is the aforementioned `Submission` object used in the `/submissions` endpoint request body.
 
-### Response body
+#### Response body
 
 Response body consists of an array `results` of objects with properties `id` and `result`, where `result` is the same object returned by the previous endpoint.
 
@@ -154,4 +152,4 @@ Example response:
 }
 ```
 
-It is the responsibility of the user to assign id's to each submission and the rearrange them after the API's response.
+It is the responsibility of the user to assign `id`'s to each submission and the rearrange them after the API's response.
