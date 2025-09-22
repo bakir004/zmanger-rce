@@ -15,7 +15,7 @@ mod utils;
 use std::collections::VecDeque;
 use std::sync::Mutex;
 use lazy_static::lazy_static;
-
+use std::process::Command;
 
 #[tokio::main]
 async fn main() {
@@ -28,6 +28,22 @@ async fn main() {
         .expect("Failed to bind TCP listener");
 
     let num_workers = num_cpus::get();
+    println!("Pre-pulling GCC image...");
+    let pull_output = Command::new("podman")
+        .args(&["pull", "docker.io/library/gcc:latest"])
+        .output();
+    
+    match pull_output {
+        Ok(output) => {
+            if output.status.success() {
+                println!("GCC image pre-pulled successfully");
+            } else {
+                println!("Failed to pre-pull GCC image: {}", String::from_utf8_lossy(&output.stderr));
+            }
+        },
+        Err(e) => println!("Error pre-pulling image: {}", e),
+    }
+    println!("Done pulling");
 
     for _ in 0..num_workers {
         tokio::spawn(worker_loop());
